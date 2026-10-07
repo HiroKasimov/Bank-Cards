@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kartalar</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#05030c">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05030c;--panel:#0d0a1c;--line:#241b45;--text:#efeaff;--dim:#6d6692;--c:#00f0ff}
+*{box-sizing:border-box;margin:0}
+body{min-height:100vh;color:var(--text);font-family:'Chakra Petch',system-ui,sans-serif;max-width:480px;margin:0 auto;
+padding:max(18px,env(safe-area-inset-top)) 14px max(24px,env(safe-area-inset-bottom));
+background:radial-gradient(420px 260px at 0% 0%,rgba(0,240,255,.14),transparent 70%),
+radial-gradient(420px 300px at 100% 40%,rgba(255,43,214,.12),transparent 70%),var(--bg)}
+h1{font-size:28px;margin-bottom:14px;text-shadow:0 0 6px var(--c),0 0 20px var(--c)}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tabs button{flex:1;padding:10px 0;background:transparent;color:var(--dim);border:1px solid var(--line);border-radius:8px;
+font:600 14px inherit;font-family:inherit;transition:.2s}
+.tabs button.on{color:var(--c);border-color:var(--c);box-shadow:0 0 12px rgba(0,240,255,.4);text-shadow:0 0 8px var(--c)}
+.empty{color:var(--dim);text-align:center;padding:28px 0;font-size:14px}
+.card{position:relative;aspect-ratio:1.586;border-radius:18px;padding:16px 18px;margin-bottom:14px;overflow:hidden;
+display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;user-select:none;
+background-size:300% 300%;animation:flow 5s ease-in-out infinite;border:1px solid rgba(255,255,255,.18)}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;
+background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.22) 50%,transparent 60%);
+transform:translateX(-120%);animation:shine 4s ease-in-out infinite}
+@keyframes flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes shine{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.t-uzcard{background-image:linear-gradient(120deg,#07123a,#0b4dff,#00cfff,#07123a);box-shadow:0 0 22px rgba(11,77,255,.5)}
+.t-humo{background-image:linear-gradient(120deg,#021a16,#00a878,#00f0a8,#021a16);box-shadow:0 0 22px rgba(0,200,140,.45)}
+.t-visa{background-image:linear-gradient(120deg,#12002e,#5b21ff,#ff2bd6,#12002e);box-shadow:0 0 22px rgba(160,50,255,.5)}
+.top,.bot{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.brand{font-weight:700;font-size:15px;text-shadow:0 0 8px rgba(255,255,255,.6)}
+.acts button{background:rgba(0,0,0,.35);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:8px;
+width:34px;height:30px;margin-left:6px;font-size:14px}
+.num{font-size:21px;font-weight:600;letter-spacing:.06em;position:relative;z-index:1;text-shadow:0 0 10px rgba(0,0,0,.5);
+font-variant-numeric:tabular-nums}
+.bot{font-size:13px;opacity:.95}
+.add{background:rgba(13,10,28,.85);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:6px}
+.add label{display:block;font-size:13px;color:var(--dim);margin:0 0 6px}
+.add input{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;
+font:15px inherit;font-family:inherit;margin-bottom:10px}
+.r2{display:flex;gap:8px}.r2>div{flex:1;min-width:0}
+.add .go{width:100%;padding:12px;border:0;border-radius:8px;background:var(--c);color:#04141a;font-weight:700;font-size:15px;
+font-family:inherit;box-shadow:0 0 14px rgba(0,240,255,.5)}
+#err{color:#ff5c8a;font-size:13px;min-height:18px;margin-bottom:6px}
+.hint{font-size:12px;color:var(--dim);margin-top:10px}
+button:focus-visible,input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.card,.card::after{animation:none}}
+[hidden]{display:none!important}
+.lg{text-align:center;padding:40px 8px;color:var(--dim);font-size:14px}
+.lg p{margin-bottom:16px}
+.gb{width:100%;padding:13px;border:0;border-radius:8px;background:var(--c);color:#04141a;font:700 15px 'Chakra Petch',sans-serif;
+box-shadow:0 0 14px rgba(0,240,255,.5)}
+#lerr{color:#ff5c8a;font-size:13px;min-height:18px;margin-bottom:8px}
+.who{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--dim);margin:-6px 0 12px}
+.who button{background:transparent;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:4px 10px;font-family:inherit}
+
+.card.v1{background-image:linear-gradient(120deg,#2a0a1f,#ff2b6a,#ff9a2b,#2a0a1f);box-shadow:0 0 22px rgba(255,60,100,.5)}
+.card.v2{background-image:linear-gradient(120deg,#001a0a,#00ff6a,#003d1f,#001a0a);box-shadow:0 0 22px rgba(0,255,106,.4)}
+.card.v3{background-image:linear-gradient(120deg,#06223a,#6fd3ff,#e8f8ff,#06223a);box-shadow:0 0 22px rgba(111,211,255,.5)}
+.chip{background:rgba(0,0,0,.4);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:3px 10px;font:600 13px 'Chakra Petch',sans-serif}
+.add select{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;font:15px 'Chakra Petch',sans-serif;margin-bottom:10px}
+.add input[type=file]{padding:8px;font-size:13px}
+#modal{position:fixed;inset:0;background:rgba(5,3,12,.92);display:flex;align-items:center;justify-content:center;z-index:9;padding:20px}
+#modal>div{background:var(--panel);border:1px solid var(--c);border-radius:12px;padding:20px;width:100%;max-width:360px;box-shadow:0 0 24px rgba(0,240,255,.35)}
+#modal h2{font-size:17px;margin-bottom:12px}
+#modal input{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:11px;font:15px 'Chakra Petch',sans-serif;margin-bottom:10px}
+#merr{color:#ff5c8a;font-size:13px;min-height:18px;margin-bottom:6px}
+#modal .r2 button{flex:1;padding:11px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--dim);font:600 14px 'Chakra Petch',sans-serif}
+#modal .r2 button#mok{background:var(--c);color:#04141a;border:0}
+.who span{overflow:hidden;text-overflow:ellipsis}.who div{display:flex;gap:6px}
+</style>
+</head>
+<body>
+<h1>KARTALAR</h1>
+<div class="lg" id="login"><p>Kartalaringizni ko'rish uchun Google orqali kiring</p><div id="lerr"></div>
+<button class="gb" id="gbtn">Google bilan kirish</button></div>
+<div id="app" hidden>
+<div class="who"><span id="who"></span><div><button id="lk">Qulflash</button><button id="out">Chiqish</button></div></div>
+<div class="tabs" id="tabs"></div>
+<div id="list"></div>
+<div class="add">
+  <div id="err"></div>
+  <label for="num">Karta raqami</label>
+  <input id="num" inputmode="numeric" autocomplete="off" placeholder="8600 0000 0000 0000" maxlength="19">
+  <div class="r2">
+    <div><label for="exp">Amal qilish (OO/YY)</label><input id="exp" inputmode="numeric" autocomplete="off" placeholder="12/28" maxlength="5"></div>
+    <div><label for="name">Nom (ixtiyoriy)</label><input id="name" autocomplete="off" placeholder="Asosiy" maxlength="20"></div>
+  </div>
+  <div id="cvvw"><label for="cvv">CVV (ixtiyoriy, shifrlanadi)</label><input id="cvv" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="123"></div>
+  <label for="dz">Dizayn</label>
+  <select id="dz"><option value="0">Standart</option><option value="1">Sunset</option><option value="2">Matrix</option><option value="3">Ice</option></select>
+  <label for="img">Yoki o'z rasmingiz (ixtiyoriy)</label><input id="img" type="file" accept="image/*">
+  <button class="go" id="add">Qo'shish</button>
+  <button class="chip" id="cancel" hidden style="margin-top:8px;width:100%;padding:10px">Bekor qilish</button>
+  <div class="hint">Karta bossangiz raqam va muddat ochiladi (10 soniya). CVV alohida: parol bilan, 5 soniya. 2 daqiqa harakatsiz qolsa, ilova o'zi qulflanadi.</div>
+</div>
+
+</div>
+<div id="modal" hidden><div><h2 id="mt"></h2><input id="p1" type="password" autocomplete="off" placeholder="Parol"><input id="p2" type="password" autocomplete="off" placeholder="Parolni takrorlang" hidden><div id="merr"></div><div class="r2"><button id="mno">Chiqish</button><button id="mok">OK</button></div></div></div>
+<script type="module">
+/* ---- Firebase + shifrlash (PBKDF2 -> AES-GCM). Firestore'da faqat shifrlangan matn turadi ---- */
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+const firebaseConfig={
+  apiKey:"AIzaSyC_N2THHPDVPcuffL3gST-Z-c9h_4f81tk",
+  authDomain:"new-ideas-5fec8.firebaseapp.com",
+  projectId:"new-ideas-5fec8",
+  storageBucket:"new-ideas-5fec8.firebasestorage.app",
+  messagingSenderId:"600410330126",
+  appId:"1:600410330126:web:233a7747f65840b6da185f"
+};
+const fbApp=initializeApp(firebaseConfig), auth=getAuth(fbApp), db=getFirestore(fbApp);
+const $=id=>document.getElementById(id);
+let uid=null,key=null,salt=null,last=null,cards=[],tab='uzcard',cvvOn=null,editId=null;
+const shown=new Map();
+const ref=()=>doc(db,'users',uid,'data','cards');
+const te=new TextEncoder(),td=new TextDecoder();
+function b64(a){a=new Uint8Array(a);let s='';for(let i=0;i<a.length;i+=8192)s+=String.fromCharCode.apply(null,a.subarray(i,i+8192));return btoa(s);}
+const unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function derive(pw,sl){
+  const m=await crypto.subtle.importKey('raw',te.encode(pw),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt:sl,iterations:300000,hash:'SHA-256'},m,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+}
+async function encrypt(k,obj){
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},k,te.encode(JSON.stringify(obj)));
+  return {iv:b64(iv),data:b64(ct)};
+}
+async function decrypt(k,d){
+  return JSON.parse(td.decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(d.iv)},k,unb64(d.data))));
+}
+async function saveCards(){
+  try{ last=await encrypt(key,cards); await setDoc(ref(),{v:2,salt:b64(salt),...last}); }
+  catch(e){ console.error(e); $('err').textContent='Saqlanmadi: '+(e.code||e.message); }
+}
+
+/* ---- Parol oynasi ---- */
+function askPass(title,confirm,err){
+  return new Promise(res=>{
+    $('mt').textContent=title; $('p1').value=''; $('p2').value=''; $('p2').hidden=!confirm;
+    $('merr').textContent=err||''; $('modal').hidden=false; $('p1').focus();
+    const done=v=>{$('modal').hidden=true;res(v);};
+    $('mno').onclick=()=>done(null);
+    $('mok').onclick=()=>{
+      const p=$('p1').value;
+      if(confirm){ if(p.length<8) return $('merr').textContent='Kamida 8 belgi kerak';
+        if(p!==$('p2').value) return $('merr').textContent='Parollar mos emas'; }
+      else if(!p) return;
+      done(p);
+    };
+  });
+}
+async function boot(){
+  let d=null;
+  try{ const s=await getDoc(ref()); d=s.exists()?s.data():null; }
+  catch(e){ console.error(e); $('lerr').textContent='Yuklanmadi: '+(e.code||e.message); return signOut(auth); }
+  if(d&&d.v===2){
+    salt=unb64(d.salt); let err='';
+    for(;;){
+      const pw=await askPass('Parolni kiriting',false,err);
+      if(pw===null) return signOut(auth);
+      try{ key=await derive(pw,salt); cards=await decrypt(key,d); last={iv:d.iv,data:d.data}; break; }
+      catch(e){ err='Parol noto\'g\'ri'; }
+    }
+  }else{
+    const pw=await askPass('Yangi parol o\'rnating (kamida 8 belgi). Uni unutsangiz, kartalarni tiklab bo\'lmaydi!',true);
+    if(pw===null) return signOut(auth);
+    cards=(d&&d.list)||[]; salt=crypto.getRandomValues(new Uint8Array(16)); key=await derive(pw,salt); await saveCards();
+  }
+  $('app').hidden=false; render();
+}
+
+/* ---- Karta mantiqi ---- */
+const TYPES={uzcard:'UzCard',humo:'Humo',visa:'Visa'};
+const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const group=d=>d.replace(/(\d{4})(?=\d)/g,'$1 ');
+
+function render(){
+  $('cvvw').hidden=tab!=='visa';
+  $('tabs').innerHTML=Object.entries(TYPES).map(([k,v])=>`<button class="${k===tab?'on':''}" data-t="${k}">${v}</button>`).join('');
+  const list=cards.filter(c=>c.type===tab);
+  $('list').innerHTML=list.length?list.map(c=>{
+    const open=shown.has(c.id), n=c.num;
+    const txt=open?group(n):n.slice(0,4)+' •••• •••• '+n.slice(12);
+    const st=c.img?` style="background-image:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.5)),url(${c.img});background-size:cover;animation:none"`:'';
+    const left=c.cvv?`<button class="chip" data-a="cvv">CVV ${cvvOn===c.id?esc(c.cvv):'•••'}</button>`:`<span>${open?'MUDDATI':'bosib oching'}</span>`;
+    return `<div class="card t-${c.type} v${c.v||0}" data-id="${c.id}"${st}>
+      <div class="top"><span class="brand">${TYPES[c.type].toUpperCase()}${c.name?' · '+esc(c.name):''}</span>
+      <span class="acts"><button data-a="up" aria-label="Yuqoriga">↑</button><button data-a="ed" aria-label="Tahrirlash">✎</button><button data-a="cp" aria-label="Nusxa olish">⧉</button><button data-a="del" aria-label="O'chirish">✕</button></span></div>
+      <div class="num">${txt}</div>
+      <div class="bot">${left}<span>${open?esc(c.exp):'••/••'}</span></div></div>`;
+  }).join(''):'<div class="empty">Bu bo\'limda hali karta yo\'q</div>';
+}
+
+$('tabs').onclick=e=>{const t=e.target.dataset.t; if(t){tab=t;render();}};
+$('list').onclick=async e=>{
+  const card=e.target.closest('.card'); if(!card) return;
+  const id=card.dataset.id, a=e.target.dataset.a, c=cards.find(x=>x.id===id);
+  if(a==='del'){ if(confirm('Kartani o\'chirasizmi?')){cards=cards.filter(x=>x.id!==id);await saveCards();render();} return; }
+  if(a==='up'){ const same=cards.filter(x=>x.type===c.type), i=same.indexOf(c);
+    if(i>0){ const j=cards.indexOf(same[i-1]), k=cards.indexOf(c); [cards[j],cards[k]]=[cards[k],cards[j]]; await saveCards(); render(); } return; }
+  if(a==='ed'){ editId=id; tab=c.type; $('num').value=group(c.num); $('exp').value=c.exp; $('name').value=c.name||''; $('cvv').value='';
+    $('dz').value=c.v||0; $('img').value=''; $('add').textContent='Saqlash'; $('cancel').hidden=false; render(); $('num').scrollIntoView({behavior:'smooth'}); return; }
+  if(a==='cp'){ navigator.clipboard&&navigator.clipboard.writeText(c.num); e.target.textContent='✓'; setTimeout(render,900); return; }
+  if(a==='cvv'){
+    if(cvvOn===id){cvvOn=null;return render();}
+    let err='';
+    for(;;){
+      const pw=await askPass('CVV ochish uchun parol',false,err);
+      if(pw===null) return;
+      try{ await decrypt(await derive(pw,salt),last); break; }catch(x){ err='Parol noto\'g\'ri'; }
+    }
+    cvvOn=id; render(); setTimeout(()=>{ if(cvvOn===id){cvvOn=null;render();} },5000); return;
+  }
+  if(shown.has(id)){clearTimeout(shown.get(id));shown.delete(id);}
+  else shown.set(id,setTimeout(()=>{shown.delete(id);render();},10000));
+  render();
+};
+
+$('num').oninput=e=>{e.target.value=group(e.target.value.replace(/\D/g,'').slice(0,16));};
+$('exp').oninput=e=>{let d=e.target.value.replace(/\D/g,'').slice(0,4);e.target.value=d.length>2?d.slice(0,2)+'/'+d.slice(2):d;};
+$('cvv').oninput=e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,4);};
+
+function toImg(file){return new Promise((res,rej)=>{
+  const i=new Image();
+  i.onload=()=>{const w=480,h=Math.round(w/1.586),c=document.createElement('canvas');c.width=w;c.height=h;
+    const r=Math.max(w/i.width,h/i.height);
+    c.getContext('2d').drawImage(i,(w-i.width*r)/2,(h-i.height*r)/2,i.width*r,i.height*r);
+    res(c.toDataURL('image/jpeg',.72));};
+  i.onerror=rej; i.src=URL.createObjectURL(file);
+});}
+
+$('add').onclick=async()=>{
+  const num=$('num').value.replace(/\D/g,''), exp=$('exp').value, mm=+exp.slice(0,2), cvv=$('cvv').value;
+  if(num.length!==16) return $('err').textContent='Karta raqami 16 ta raqam bo\'lishi kerak';
+  if(!/^\d\d\/\d\d$/.test(exp)||mm<1||mm>12) return $('err').textContent='Muddatni OO/YY ko\'rinishida kiriting';
+  if(cvv&&cvv.length<3) return $('err').textContent='CVV 3 yoki 4 raqam bo\'lishi kerak';
+  $('err').textContent='';
+  const old=editId&&cards.find(x=>x.id===editId), card=old||{id:Date.now().toString(36),type:tab};
+  if(old&&old.img&&!$('img').files[0]&&+$('dz').value!==(old.v||0)) delete card.img;
+  Object.assign(card,{num,exp,name:$('name').value.trim(),v:+$('dz').value});
+  if(tab==='visa'&&cvv) card.cvv=cvv;
+  const f=$('img').files[0];
+  if(f){ try{ card.img=await toImg(f); }catch(e){ return $('err').textContent='Rasm o\'qilmadi'; } }
+  if(!old) cards.push(card);
+  await saveCards(); resetForm(); render();
+};
+function resetForm(){ ['num','exp','name','cvv','img'].forEach(i=>$(i).value=''); $('dz').value='0'; editId=null; $('add').textContent='Qo\'shish'; $('cancel').hidden=true; }
+$('cancel').onclick=()=>{ resetForm(); render(); };
+
+onAuthStateChanged(auth,async u=>{
+  uid=u?u.uid:null; key=null; cards=[]; cvvOn=null; shown.clear();
+  $('login').hidden=!!u; $('app').hidden=true; $('modal').hidden=true;
+  if(u){ $('who').textContent=u.email; await boot(); }
+});
+$('gbtn').onclick=()=>{ $('lerr').textContent=''; signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>{ $('lerr').textContent='Kirish xatosi: '+e.code; }); };
+$('out').onclick=()=>signOut(auth);
+function lock(){ if(!key) return; key=null; cards=[]; cvvOn=null; shown.clear(); resetForm(); $('app').hidden=true; boot(); }
+$('lk').onclick=lock;
+let idle,away;
+const bump=()=>{ clearTimeout(idle); idle=setTimeout(lock,120000); };
+['pointerdown','keydown'].forEach(ev=>addEventListener(ev,bump,{passive:true}));
+document.addEventListener('visibilitychange',()=>{ if(document.hidden) away=setTimeout(lock,60000); else clearTimeout(away); });
+bump();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
